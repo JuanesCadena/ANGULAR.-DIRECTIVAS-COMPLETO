@@ -326,6 +326,17 @@
 </div>
 
 <div class="content" role="main">
+  <button (click)="condicion = !condicion">Ver</button>
+  <div *ngIf="condicion; else textoAlternativo">
+    <p>El valor de la variable condicion es: true</p>
+  </div>
+  <ng-template #textoAlternativo>
+    <div>
+      <p>El valor de la variable condicion es: false</p>
+    </div>
+  </ng-template>
+  
+  
 
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
@@ -342,6 +353,17 @@
     </svg>
 
     <span>{{ title }} app is running!</span>
+    <ul [ngSwitch]="dias_semana">
+    <li *ngSwitchCase="'Lunes'">Primer día de la semana</li>
+    <li *ngSwitchCase="'Martes'">Segundo día de la semana</li>
+    <li *ngSwitchCase="'Miercoles'">Tercer día de la semana</li>
+    <li *ngSwitchCase="'Jueves'">Cuarto día de la semana</li>
+    <li *ngSwitchCase="'Viernes'">Quinto día de la semana</li>
+    <li *ngSwitchCase="'Sabado'">Sexto día de la semana</li>
+    <li *ngSwitchCase="'Domingo'">Septimo día de la semana</li>
+    <li *ngSwitchDefault>Día de la semana:</li>
+    </ul>
+    <input type="text"  [(ngModel)]="dias_semana"/>
     <span><app-prueba></app-prueba></span>
    
 
@@ -356,10 +378,62 @@
   <!-- Resources -->
   <h2>Resources</h2>
   <p>Here are some links to help you get started:</p>
+  <!--Version texto 
+  <div [ngStyle]="{'color':vblecolor ? vblecolor: 'red'}">Texto Rojo por defecto</div>
+  
+  <button (click)="vblecolor='purple'"> Morado  </button>
+  <button (click)="vblecolor='red'"> Rojo  </button>
+  <button (click)="vblecolor='yellow'"> Yellow  </button>
+-->
+
+<div [ngStyle]="{'background': vblecolor ? vblecolor : 'red'}">Texto Fondo Rojo</div>
+<button (click)="vblecolor='yellow'" [ngClass]="vblecolor">Amarillo</button>
+<button (click)="vblecolor='blue'" [ngClass]="vblecolor">Azul</button>
+<button (click)="vblecolor='purple'" [ngClass]="vblecolor">Morado</button>
+
+
+
   <app-colores></app-colores>
   <app-colores></app-colores>
   <app-colores></app-colores>
   <app-colores></app-colores>
+
+
+  <!-- app.component.html -->
+<ul>
+  <li *ngFor="let libro of libros">{{libro.titulo}} - {{libro.autor}}</li>
+</ul>
+
+<ul>
+  <li *ngFor="let libro of libros; index as indice">{{indice + 1}} - {{libro.titulo}} - {{libro.autor}}</li>
+</ul>
+
+<ul>
+  <li *ngFor="let libro of libros; index as indice">
+    {{indice + 1}} - {{libro.titulo}} - {{libro.autor}}
+    <span *ngIf="indice === 1"> - Best Seller</span>
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let libro of libros; index as indice; first as primero">
+    {{indice + 1}} - {{libro.titulo}} - {{libro.autor}}
+    <span *ngIf="primero"> - Best Seller</span>
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let libro of libros">
+    <a href="https://www.google.com/search?q={{libro.titulo}}" target="_blank">{{libro.titulo}}</a> - {{libro.autor}}
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let libro of libros">
+    <a (click)="showAuthor(libro)">{{libro.titulo}}</a> - {{libro.autor}}
+  </li>
+</ul>
+
   <div class="card-container">
     <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
       <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
